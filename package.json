@@ -1,0 +1,22 @@
+{
+  "name": "oragnicproducesupplychain",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.5"
+  },
+  "dependencies": {
+    "@nomicfoundation/hardhat-ignition": "^0.15.4",
+    "@openzeppelin/contracts": "^5.0.2",
+    "esm": "^3.2.25",
+    "ethers": "^6.13.0"
+  }
+}
