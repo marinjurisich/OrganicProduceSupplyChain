@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organic Produce Supply Chain</title>
+  <script type="text/javascript">
+    const contract = {};
+  </script>
+  <script type="module">
+    import { createProduce, getAccount, displayProduce, getProduceHistory, transferProduce, getAllUsers } from "/frontend/index.js";
+    contract.createProduce = createProduce;
+    contract.getAccount = getAccount;
+    contract.displayProduce = displayProduce;
+    contract.getProduceHistory = getProduceHistory;
+    contract.transferProduce = transferProduce;
+  </script>
+
+  <script>
+
+  </script>
+</head>
+<body>
+  <h1>Organic Produce Supply Chain</h1>
+  <!-- Display a connect button and the current account -->
+<button class="enableEthereumButton" onclick="contract.getAccount()">Enable Ethereum</button>
+<h2>Account: <span class="showAccount"></span></h2>
+  <div>
+    <h2>Create Produce</h2>
+    <input id="produceName" type="text" placeholder="Produce Name" />
+    <input id="produceAmount" type="number" placeholder="Produce Amount" />
+    <button onclick="contract.createProduce()">Create</button>
+  </div>
+  <div>
+    <h2>Transfer Produce</h2>
+    <input id="produceId" type="number" placeholder="Produce ID" />
+    <input id="recipientAddress" type="text" placeholder="Recipient Address" />
+    <input id="produceStatus" type="text" placeholder="Status" />
+    <button onclick="contract.transferProduce()">Transfer</button>
+  </div>
+
+  <div>
+    <h2>All produce</h2>
+    <button onclick="contract.displayProduce()">Dohvati</button>
+    <div id="allProduceDisplay"></div>
+    <h2>Produce history</h2>
+    <input type="number" name="" id="historyInput">
+    <button onclick="contract.getProduceHistory()">Povijest</button>
+    <div id="historyDisplay"></div>
+  </div>
+
+  <div>
+    <h2>All users</h2>
+    <button onclick="contract.displayProduce()">Dohvati</button>
+    <div id="allUsersDisplay"></div>
+  </div>
+</body>
+
+
+</html>
