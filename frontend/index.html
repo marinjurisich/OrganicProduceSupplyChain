@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organic Produce Supply Chain</title>
+  <script type="text/javascript">
+    const contract = {};
+  </script>
+  <script type="module">
+    import { initialize, createProduce, getAccount, displayProduce, getAnyProduceHistory, transferProduceToAggregator, transferProduceToRetailer, soldToCustomer } from "/frontend/index.js";
+    contract.initialize = initialize;
+    contract.createProduce = createProduce;
+    contract.getAccount = getAccount;
+    contract.displayProduce = displayProduce;
+    contract.getAnyProduceHistory = getAnyProduceHistory;
+    contract.transferProduceToAggregator = transferProduceToAggregator;
+    contract.soldToCustomer = soldToCustomer;
+    contract.transferProduceToRetailer = transferProduceToRetailer;
+
+    window.addEventListener('load', contract.initialize());
+  </script>
+
+  <script>
+
+  </script>
+</head>
+<body>
+  <h1>Organic Produce Supply Chain</h1>
+  <!-- Display a connect button and the current account -->
+<button class="enableEthereumButton" onclick="contract.getAccount()">Enable Ethereum</button>
+<h2>Account: <span class="showAccount"></span></h2>
+  <div id="farmerFunctions">
+    <h2>Create Produce</h2>
+    <input id="produceName" type="text" placeholder="Produce Name"/>
+    <input id="produceAmount" type="number" placeholder="Produce Amount" />
+    <button onclick="contract.createProduce()">Create</button>
+
+    <h2>Transfer Produce to Aggregator</h2>
+    <input class="produceId" type="number" placeholder="Produce ID" disabled/>
+    <input class="recipientAddress" type="text" placeholder="Recipient Address" disabled/>
+    <button onclick="contract.transferProduceToAggregator()">Transfer</button>
+  </div>
+
+  <div id="aggregatorFunctions">
+    <div>
+      <h2>Transfer Produce to Retailer</h2>
+      <input class="produceId" type="number" placeholder="Produce ID" disabled/>
+      <input class="recipientAddress" type="text" placeholder="Recipient Address" disabled/>
+      <button onclick="contract.transferProduceToRetailer()">Transfer</button>
+    </div>
+  </div>
+
+  <div id="retailerFunctions">
+    <div>
+      <h2>Sell produce</h2>
+      <input class="produceId" type="number" placeholder="Produce ID" disabled/>
+      <button onclick="contract.soldToCustomer()">Mark as sold</button>
+    </div>
+  </div>
+
+  <div>
+    <h2>User produce (click to select)</h2>
+    <div id="allProduceDisplay"></div>
+    <h2>Produce history</h2>
+    <input type="number" id="historyInput">
+    <button onclick="contract.getAnyProduceHistory()">Povijest</button>
+    <div id="historyDisplay"></div>
+  </div>
+
+  <div>
+    <h2 id="usersTitle"></h2>
+    <div id="usersDisplay"></div>
+  </div>
+</body>
+
+
+</html>
