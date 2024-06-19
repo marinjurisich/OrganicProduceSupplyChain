@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Users\\marin\\Desktop\\OragnicProduceSupplyChain\\contracts\\OrganicProduceSupplyChain.sol": {
-      "lastModificationDate": 1718627210462,
-      "contentHash": "bcdd72af3b9aa83546a6d13d154916ac",
+      "lastModificationDate": 1718722758046,
+      "contentHash": "f1d3c4d4d13d751e54bfb11a6d39e4ad",
       "sourceName": "contracts/OrganicProduceSupplyChain.sol",
       "solcConfig": {
         "version": "0.8.24",

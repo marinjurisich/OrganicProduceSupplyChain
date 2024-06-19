@@ -1,21 +1,21 @@
-import { ethers } from 'https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.esm.min.js';
+import { ethers } from 'https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.min.js';
 import OrganicProduceSupplyChain from '../artifacts/contracts/OrganicProduceSupplyChain.sol/OrganicProduceSupplyChain.json' with { type: 'json' };
 
-const contractAddress = "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318";
-const provider = new ethers.providers.Web3Provider(window.ethereum);
-const signer = provider.getSigner();
-const contract = new ethers.Contract(contractAddress, OrganicProduceSupplyChain.abi, signer);
+const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+const provider = new ethers.BrowserProvider(window.ethereum);
+
+const contract = new ethers.Contract(contractAddress, OrganicProduceSupplyChain.abi, provider);
 let targetAddress = "";
 let selectedProduce = "";
 
 export async function initialize() {
 
-    const FARMER_ROLE = ethers.utils.id("ROLE_FARMER");
-    const AGGREGATOR_ROLE = ethers.utils.id("ROLE_AGGREGATOR");
-    const RETAILER_ROLE = ethers.utils.id("ROLE_RETAILER");
+    const FARMER_ROLE = ethers.id("ROLE_FARMER");
+    const AGGREGATOR_ROLE = ethers.id("ROLE_AGGREGATOR");
+    const RETAILER_ROLE = ethers.id("ROLE_RETAILER");
 
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
     const address = await signer.getAddress();
 
     const isFarmer = await contract.hasRole(FARMER_ROLE, address);
@@ -64,7 +64,6 @@ async function getAllAggregators() {
         
         row.addEventListener('click', function() {
             targetAddress = this.dataset.id;
-            console.log('Selected address:', targetAddress);
             document.querySelector("#farmerFunctions .recipientAddress").value = targetAddress;
         });
 
@@ -92,7 +91,6 @@ async function getAllRetailers() {
 
         row.addEventListener('click', function() {
             targetAddress = this.dataset.id;
-            console.log('Selected address: ', targetAddress);
             document.querySelector("#aggregatorFunctions .recipientAddress").value = targetAddress;
         });
 
@@ -128,7 +126,7 @@ async function getProduceHistory(id) {
     }
 }
 
-contract.on('ProduceCreated', (name, owner, amount, timestamp, status) => {
+contract.on('ProduceCreated', () => {
     getUsersProduce();
 });
 
@@ -137,10 +135,8 @@ async function getUsersProduce() {
     if (!window.ethereum) return alert("MetaMask is required!");
     
     let data = await contract.getUserProduce();
-    console.log(data);
 
     document.getElementById("allProduceDisplay").innerText = "";
-
     for(var i = 0; i < data.length; i++) {
         const row = document.createElement('div');
         row.textContent = "id: " + data[i].id + ", owner: " + data[i].currentOwner + ", amount: " + data[i].amount;
@@ -162,7 +158,6 @@ export async function displayProduce() {
     if (!window.ethereum) return alert("MetaMask is required!");
     
     let data = await contract.getAllProduce();
-    console.log(data);
 
     document.getElementById("allProduceDisplay").innerText = "";
     for (var d of data) {

@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 import "hardhat/console.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
-contract OrganicProduceSupplyChain is AccessControl{
+contract OrganicProduceSupplyChain is AccessControl {
 
     struct Produce {
         uint id;
@@ -26,10 +26,10 @@ contract OrganicProduceSupplyChain is AccessControl{
     uint256 public produceCount = 0;
     mapping(uint256 => History[]) public histories;
     mapping (address => string) users;
+    mapping (address => uint256[]) public usersProduce;
     address[] public farmers;
     address[] public aggregators;
     address[] public retailers;
-    mapping (address => uint256[]) public usersProduce;
 
     event ProduceCreated(string name, address owner, uint amount, uint256 timestamp, string status);
     event ProduceTransferred(uint id, address oldOwner, address newOwner, uint256 timestamp, string status);
@@ -52,7 +52,7 @@ contract OrganicProduceSupplyChain is AccessControl{
         histories[produceCount].push(newHistory);
 
         emit ProduceCreated(_name, msg.sender, _amount, block.timestamp, "Created");
-        produceCount++;
+        ++produceCount;
     }
 
     function getUserProduce() public view returns (Produce[] memory) {
@@ -62,15 +62,6 @@ contract OrganicProduceSupplyChain is AccessControl{
             produces[i] = allProduce[produceIds[i]];
         }
         return produces;
-    }
-
-    function transferProduce(uint _produceId, address _newOwner, string calldata _status) public {
-        allProduce[_produceId].currentOwner = _newOwner;
-        History memory history;
-        history.owner = _newOwner;
-        history.timestamp = block.timestamp;
-        history.status = _status;
-        histories[_produceId].push(history);
     }
 
     function transferProduceToAggregator(uint _produceId, address _newOwner) public onlyRole(ROLE_FARMER) {
@@ -160,7 +151,6 @@ contract OrganicProduceSupplyChain is AccessControl{
     }
 
     function getAllFarmers() public view returns (address[] memory, string[] memory) {
-
         string[] memory names = new string[](farmers.length);
 
         for (uint i = 0; i < farmers.length; i++) {
@@ -170,7 +160,6 @@ contract OrganicProduceSupplyChain is AccessControl{
     }
 
     function getAllAggregators() public view returns (address[] memory, string[] memory) {
-
         string[] memory names = new string[](aggregators.length);
         
         for (uint i = 0; i < aggregators.length; i++) {
@@ -180,7 +169,6 @@ contract OrganicProduceSupplyChain is AccessControl{
     }
 
     function getAllRetailers() public view returns (address[] memory, string[] memory) {
-
         string[] memory names = new string[](retailers.length);
         
         for (uint i = 0; i < retailers.length; i++) {
