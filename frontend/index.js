@@ -3,10 +3,9 @@ import OrganicProduceSupplyChain from '../artifacts/contracts/OrganicProduceSupp
 
 const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 const provider = new ethers.BrowserProvider(window.ethereum);
-
 const contract = new ethers.Contract(contractAddress, OrganicProduceSupplyChain.abi, provider);
+
 let targetAddress = "";
-let selectedProduce = "";
 
 export async function initialize() {
 
@@ -129,7 +128,6 @@ async function getProduceHistory(id) {
 contract.on('ProduceCreated', () => {
     getUsersProduce();
 });
-
 
 async function getUsersProduce() {
     if (!window.ethereum) return alert("MetaMask is required!");
